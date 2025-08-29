@@ -91,13 +91,13 @@
 /* 质数状态：渐变色圆形 */
 .counter-prime {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: #fff;
+  color: red;
 }
 
 /* 非质数状态：单色背景 */
 .counter-composite {
   background: var(--bg-secondary);
-  color: var(--text-primary);
+  color: red;
 }
 
 .action-indicator {
