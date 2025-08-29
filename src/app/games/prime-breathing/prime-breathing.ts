@@ -1,31 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-prime-breathing',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './prime-breathing.html',
   styleUrl: './prime-breathing.css'
 })
 
 export class PrimeBreathing implements OnDestroy {
-  count = -1;                  // 当前数到几。
-  private prevCount = 0;      // 上个数字是几。
+  count = 0;                  // 当前数到几。
   isHolding = false;          // 是否按住空格。
   lives = 3;                  // 还有几条命。
   running = false;            // 是否在开始游戏。
   lastWasCorrect = true;      // 上个逻辑是否正确。
 
+  hardMode = false;           // 是否启动困难模式 - 在困难模式下，不会显示Hold或Release的提示。
+
   // 私有属性。
-  private timerId: any = null;  // 一个用于储存时间的东西。
-  private tickMs = 1000 / 60;        // 游戏刻周期（毫秒）。
-  private ticker = 0;
+  private timerId: any = null;     // 一个用于储存时间的东西。
+  private tickMs = 1000 / 60;      // 游戏刻周期（毫秒）。
+  private ticker = 1;              // 当前游戏刻。
 
   private reactionTick = 20;       // 反应刻。
   private inputTimer: any = null;  // 储存输入时间相关函数的内容。
-  private prevState = false;       // 记录状态。
   private lifeLost = false;        // 在这个数字是否已扣过血。
 
   get isPrimeNow(): boolean {     // getter：是否为质数。（别名）
@@ -115,9 +116,7 @@ export class PrimeBreathing implements OnDestroy {
 
   // 在tick函数中执行的，被安排到每秒钟执行一次的数据，在这里。
   private sec(): void {
-    this.prevCount = this.count;      // 更新上个数字，用于对比。
     this.count += 1;                  // 更新当前数字。
-    this.prevState = this.isHolding;  // 记录上一个状态，在接下来的时间窗口进行。
     this.lifeLost = false;            // 更新是否扣血——本轮内并未扣过血。
   }
 

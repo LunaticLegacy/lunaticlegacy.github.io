@@ -11,5 +11,6 @@ import { RouterLink } from '@angular/router';
 
 export class Home {
   people_view = 0;
-  avatarSrc = '/pictures/猫.jpg';
+  avatarSrc = '/pictures/lunaneko.jpg';
+  primeBreathFigSrc = '/pictures/primebreath.png';
 }

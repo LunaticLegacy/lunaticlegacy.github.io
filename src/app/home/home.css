@@ -293,6 +293,11 @@
   display: block;
 }
 
+/* Prime Breathing card background image */
+.project-link-card .project-image-placeholder.learning {
+  background: url('https://cdn.builder.io/api/v1/image/assets%2F3374eef088704ee6a060a96e6ce624ef%2F1bc6943a50184ad3b0ff16576ef91f00') center/cover no-repeat;
+}
+
 /* Contact Section */
 .contact {
   padding: 6rem 0;
