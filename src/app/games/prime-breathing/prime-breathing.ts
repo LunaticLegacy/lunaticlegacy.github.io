@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -24,7 +24,7 @@ export class PrimeBreathing implements OnDestroy, OnInit {
   lang: 'en' | 'zh' = 'en';
   private readonly translations: Record<string, Record<'en' | 'zh', string>> = {
     back: { en: '← Back', zh: '← 返回' },
-    title: { en: 'Prime Breathing', zh: '质数呼吸' },
+    title: { en: 'Prime Breathing', zh: '质数呼吸游戏' },
     ruleLabel: { en: 'Rule:', zh: '规则：' },
     ruleText: { en: 'Hold Spacebar while numbers are not prime. Release on primes.', zh: '在合数（非质数）时按住空格，遇到质数时松开。' },
     ruleText2: { en: '(Prime number is an integer that cannot be divided by any integer other than 1 and itself.)', zh: '（质数是只能被1和自身整除的正整数。）' },
@@ -54,7 +54,9 @@ export class PrimeBreathing implements OnDestroy, OnInit {
   private inputTimer: any = null;  // 储存输入时间相关函数的内容。
   private lifeLost = false;        // 在这个数字是否已扣过血。
 
-  get isPrimeNow(): boolean {     // getter：是否为质数。（别名）
+  constructor(private ngZone: NgZone) {}
+
+  get isPrimeNow(): boolean {     // getter：��否为质数。（别名）
     return this.isPrime(this.count);
   }
 
@@ -72,11 +74,12 @@ export class PrimeBreathing implements OnDestroy, OnInit {
     this.running = true;
     this.lastWasCorrect = false;
 
-    // 绑定setInterval方法，每1个tick执行一次。（不过这里我打算每秒执行60个tick，且玩家有大概10tick的反应时间）
-    this.timerId = setInterval(() => {
-      // 这里处理每一帧分别如何进行。
-      this.tick();
-    }, this.tickMs);
+    // 在区外计时，在区内更新，确保变更检测在移动端及时生效。
+    this.ngZone.runOutsideAngular(() => {
+      this.timerId = setInterval(() => {
+        this.ngZone.run(() => this.tick());
+      }, this.tickMs);
+    });
   }
 
   // 重置游戏的方法，每次结束后需手动重置。
