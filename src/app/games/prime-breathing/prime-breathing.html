@@ -15,7 +15,7 @@
       <div class="hearts" [attr.aria-label]="t('lives')">
         <!-- 状态栏：生命值 -->
         @for(h of [0,1,2]; track $index) {
-            <span class="heart" [class.heart-lost]="$index >= lives">❤</span>
+            <span class="heart" [class.heart-lost]="$index >= lives" aria-hidden="true">&#9829;&#65038;</span>
         }
       </div>
       <div class="instructions">

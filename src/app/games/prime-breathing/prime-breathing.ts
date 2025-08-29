@@ -33,7 +33,7 @@ export class PrimeBreathing implements OnDestroy, OnInit {
     hardModeToggle: { en: 'Enable Hard Mode (No Indication)', zh: '启用困难模式（困难模式下无提示）' },
     hold: { en: 'Hold', zh: '按住' },
     release: { en: 'Release', zh: '松开' },
-    hardModeBadge: { en: 'THERE IS NO TIP IN HARD MODE', zh: ' 困难模式已禁用提示' },
+    hardModeBadge: { en: 'NO TIP IN HARD', zh: ' 困难模式无提示' },
     startBtn: { en: 'Press or Hold Spacebar to Start', zh: '按下方按钮或按住空格以开始' },
     playAgainBtn: { en: 'Press or Hold Spacebar to Play Again', zh: '按下方按钮或按住空格以再玩一次' },
     gameOverTitle: { en: 'Game Over', zh: '游戏结束' },
