@@ -26,7 +26,7 @@ export class PrimeBreathing implements OnDestroy {
   private ticker = 1;              // 当前游戏刻。
 
   private reactionTick = 20;       // 反应刻。
-  private inputTimer: any = null;  // 储存输入时间相关函数的内容。
+  private inputTimer: any = null;  // 储存输入时间相关的内容。
   private lifeLost = false;        // 在这个数字是否已扣过血。
 
   get isPrimeNow(): boolean {     // getter：是否为质数。（别名）
@@ -93,6 +93,25 @@ export class PrimeBreathing implements OnDestroy {
     }
   }
 
+  // 触摸/指针：按下（用于移动端/触屏）。
+  onPressStart(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
+    if (!this.running) {
+      this.start();
+    }
+    this.toggleHold(true);
+  }
+
+  // 触摸/指针：抬起/取消。
+  onPressEnd(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
+    this.toggleHold(false);
+  }
+
   // 游戏主逻辑在这里。
   private tick(): void {
     this.ticker += 1;
@@ -106,7 +125,7 @@ export class PrimeBreathing implements OnDestroy {
       this.sec();
     }
 
-    if (this.ticker % 60 >= this.reactionTick) {    
+    if (this.ticker % 60 >= this.reactionTick) {
       // 如果超时且按下状态错误，则扣除生命值。
       if (this.isHolding != this.shouldHold) {
         this.loseLife();

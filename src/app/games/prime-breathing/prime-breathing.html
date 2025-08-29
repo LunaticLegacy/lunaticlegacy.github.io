@@ -60,18 +60,32 @@
     <div class="controls">
       <!-- 必须支持按空格开始，否则起手会很难受。 -->
       @if (!running && lives === 3 && count === 0) { 
-        <button class="btn-primary" (click)="start()">Press or Hold Spacebar to Start</button> 
+        <p class="control-hint">Press the Lower Button or Hold Spacebar to Play</p>
       }
       <p class="control-hint">Press and hold Space for composites, let go on primes.</p>
+      <p class="control-hint">(Prime number is an integer that cannot be divided by any integer other than 1 and itself.)</p>
     </div>
 
     @if (!running && lives <= 0) {
       <div class="overlay-card">
         <h2 class="overlay-title">Game Over</h2>
         <p class="overlay-text">You lost all hearts. Try again!</p>
-        <button class="btn-primary" (click)="start()">Press or Hold Spacebar to Play Again</button>
+        <p class="control-hint">Press the Lower Button or Hold Spacebar to Play Again</p>
       </div>
     }
+
+    <!-- 移动端：按住按钮，始终显示在屏幕底部。 -->
+    <div class="mobile-controls">
+      <button
+        class="hold-button"
+        [attr.aria-pressed]="isHolding"
+        (pointerdown)="onPressStart($event)"
+        (pointerup)="onPressEnd($event)"
+        (pointercancel)="onPressEnd($event)"
+        (pointerleave)="onPressEnd($event)"
+        (contextmenu)="$event.preventDefault()"
+      >Hold</button>
+    </div>
 
   </div>
 </section>

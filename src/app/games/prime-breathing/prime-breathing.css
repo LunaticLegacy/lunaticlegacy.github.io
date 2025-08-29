@@ -161,3 +161,37 @@
 @media (max-width: 768px) {
   .counter-value { font-size: 4rem; }
 }
+
+.mobile-controls {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hold-button {
+  pointer-events: auto;
+  padding: 1rem 2.5rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  background: linear-gradient(135deg, rgb(40, 205, 205), rgb(30, 152, 234));
+  border-radius: 999px;
+  color: white;
+  box-shadow: var(--shadow-lg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  min-width: 220px;
+}
+
+.hold-button[aria-pressed="true"] { transform: translateY(1px); box-shadow: var(--shadow-md); }
