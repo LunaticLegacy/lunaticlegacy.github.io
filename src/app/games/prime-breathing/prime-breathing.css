@@ -71,8 +71,19 @@
   font-size: 1.5rem;
 }
 
-.heart { color: #ef4444; }
-.heart-lost { color: var(--border-color); }
+.heart {
+  display: inline-block;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  color: red;
+}
+
+.heart-lost {
+  opacity: 0.3;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
 
 .instructions { color: var(--text-secondary); }
 .hint-label { font-weight: 700; margin-right: 0.5rem; color: var(--text-primary); }

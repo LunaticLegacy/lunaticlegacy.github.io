@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -24,12 +24,12 @@ export class PrimeBreathing implements OnDestroy, OnInit {
   lang: 'en' | 'zh' = 'en';
   private readonly translations: Record<string, Record<'en' | 'zh', string>> = {
     back: { en: '← Back', zh: '← 返回' },
-    title: { en: 'Prime Breathing', zh: '质数呼吸' },
+    title: { en: 'Prime Breathing', zh: '质数呼吸游戏' },
     ruleLabel: { en: 'Rule:', zh: '规则：' },
     ruleText: { en: 'Hold Spacebar while numbers are not prime. Release on primes.', zh: '在合数（非质数）时按住空格，遇到质数时松开。' },
     ruleText2: { en: '(Prime number is an integer that cannot be divided by any integer other than 1 and itself.)', zh: '（质数是只能被1和自身整除的正整数。）' },
-    controlHint: { en: 'Press and hold Space for composites, let go on primes.', zh: '合数按住空格，质数松开。' },
-    controlHintMobile: { en: 'Press the Lower Button or Hold Spacebar to Play', zh: '点击下方按钮或按住空格游玩' },
+    controlHint: { en: 'Press and hold Space for composites, let go on primes.', zh: '在合数时按住，在质数时松开。' },
+    controlHintMobile: { en: 'Press the Lower Button or Hold Spacebar to Play', zh: '按住下方按钮或按住空格以游玩' },
     hardModeToggle: { en: 'Enable Hard Mode (No Indication)', zh: '启用困难模式（困难模式下无提示）' },
     hold: { en: 'Hold', zh: '按住' },
     release: { en: 'Release', zh: '松开' },
@@ -37,7 +37,7 @@ export class PrimeBreathing implements OnDestroy, OnInit {
     startBtn: { en: 'Press or Hold Spacebar to Start', zh: '按下方按钮或按住空格以开始' },
     playAgainBtn: { en: 'Press or Hold Spacebar to Play Again', zh: '按下方按钮或按住空格以再玩一次' },
     gameOverTitle: { en: 'Game Over', zh: '游戏结束' },
-    gameOverText: { en: 'You lost all hearts. Try again!', zh: '生命耗尽了，再来一次吧！' },
+    gameOverText: { en: 'You lost all hearts. Try again!', zh: '你挂了，再来一次吧！' },
     lives: { en: 'Lives', zh: '生命' },
     language: { en: 'Language', zh: '语言' },
     english: { en: 'English', zh: '英语' },
@@ -53,6 +53,8 @@ export class PrimeBreathing implements OnDestroy, OnInit {
   private reactionTick = 20;       // 反应刻。
   private inputTimer: any = null;  // 储存输入时间相关函数的内容。
   private lifeLost = false;        // 在这个数字是否已扣过血。
+
+  constructor(private ngZone: NgZone) {}
 
   get isPrimeNow(): boolean {     // getter：是否为质数。（别名）
     return this.isPrime(this.count);
@@ -72,11 +74,12 @@ export class PrimeBreathing implements OnDestroy, OnInit {
     this.running = true;
     this.lastWasCorrect = false;
 
-    // 绑定setInterval方法，每1个tick执行一次。（不过这里我打算每秒执行60个tick，且玩家有大概10tick的反应时间）
-    this.timerId = setInterval(() => {
-      // 这里处理每一帧分别如何进行。
-      this.tick();
-    }, this.tickMs);
+    // 在区外计时，在区内更新，确保变更检测在移动端及时生效。
+    this.ngZone.runOutsideAngular(() => {
+      this.timerId = setInterval(() => {
+        this.ngZone.run(() => this.tick());
+      }, this.tickMs);
+    });
   }
 
   // 重置游戏的方法，每次结束后需手动重置。
