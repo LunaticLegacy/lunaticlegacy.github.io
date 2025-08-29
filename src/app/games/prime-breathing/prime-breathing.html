@@ -1,12 +1,18 @@
 <section class="game-section">
   <div class="game-container">
     <header class="game-header">
-      <a routerLink="/" class="nav-link">← Back</a>
-      <h1 class="game-title">Prime Breathing</h1>
+      <a routerLink="/" class="nav-link">{{ t('back') }}</a>
+      <h1 class="game-title">{{ t('title') }}</h1>
+      <div class="language-bar" aria-label="{{ t('language') }}">
+        <select class="lang-select" [ngModel]="lang" (ngModelChange)="onLanguageChange($event)">
+          <option value="en">{{ t('english') }}</option>
+          <option value="zh">{{ t('chinese') }}</option>
+        </select>
+      </div>
     </header>
 
     <div class="status-bar">
-      <div class="hearts" aria-label="Lives">
+      <div class="hearts" [attr.aria-label]="t('lives')">
         <!-- 状态栏：生命值 -->
         @for(h of [0,1,2]; track $index) {
             <span class="heart" [class.heart-lost]="$index >= lives">❤</span>
@@ -14,9 +20,10 @@
       </div>
       <div class="instructions">
         <p class="instruction-text">
-          <span class="hint-label">Rule:</span>
-          Hold Space while numbers are not prime. Release on primes.
+          <span class="hint-label">{{ t('ruleLabel') }}</span>
+          {{ t('ruleText') }}
         </p>
+        <p class="control-hint">{{ t('ruleText2') }}</p>
       </div>
     </div>
 
@@ -31,15 +38,15 @@
         <div class="action-indicator" [class.correct]="isHolding === shouldHold" [class.incorrect]="isHolding !== shouldHold">
           <!-- 动作指示器 -->
           @if (shouldHold) {
-            <span class="action-text">Hold</span>
+            <span class="action-text">{{ t('hold') }}</span>
           } @else {
-            <span class="action-text">Release</span>
+            <span class="action-text">{{ t('release') }}</span>
           }
         </div>
 
       } @else {
         <div class="action-indicator" [class.incorrect]="1 === 1">
-          <span class="action-text">HARD MODE</span>
+          <span class="action-text">{{ t('hardModeBadge') }}</span>
         </div>
 
       }
@@ -52,7 +59,7 @@
           <input type="checkbox" 
                 [(ngModel)]="hardMode" 
                 name="hardMode" />
-          Enable Hard Mode (No Indication)
+          {{ t('hardModeToggle') }}
         </label>
       }
     </div>
@@ -60,17 +67,15 @@
     <div class="controls">
       <!-- 必须支持按空格开始，否则起手会很难受。 -->
       @if (!running && lives === 3 && count === 0) { 
-        <p class="control-hint">Press the Lower Button or Hold Spacebar to Play</p>
+        <p class="control-hint">{{ t('controlHintMobile') }}</p>
       }
-      <p class="control-hint">Press and hold Space for composites, let go on primes.</p>
-      <p class="control-hint">(Prime number is an integer that cannot be divided by any integer other than 1 and itself.)</p>
     </div>
 
     @if (!running && lives <= 0) {
       <div class="overlay-card">
-        <h2 class="overlay-title">Game Over</h2>
-        <p class="overlay-text">You lost all hearts. Try again!</p>
-        <p class="control-hint">Press the Lower Button or Hold Spacebar to Play Again</p>
+        <h2 class="overlay-title">{{ t('gameOverTitle') }}</h2>
+        <p class="overlay-text">{{ t('gameOverText') }}</p>
+        <p class="control-hint">{{ t('playAgainMobile') }}</p>
       </div>
     }
 
@@ -84,7 +89,7 @@
         (pointercancel)="onPressEnd($event)"
         (pointerleave)="onPressEnd($event)"
         (contextmenu)="$event.preventDefault()"
-      >Hold</button>
+      >{{ t('hold') }}</button>
     </div>
 
   </div>

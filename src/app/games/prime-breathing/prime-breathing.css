@@ -1,5 +1,20 @@
 :host {
   display: block;
+  --primary-color: #6366f1;
+  --secondary-color: #8b5cf6;
+  --accent-color: #ec4899;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-light: #9ca3af;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-accent: #f3f4f6;
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
 }
 
 .game-section {
@@ -81,7 +96,7 @@
   border-radius: 50%; /* 关键修改：圆形色块 */
   display: inline-flex; /* 使内边距生效 */
   align-items: center; /* 垂直居中 */
-  justify-content: center; /* 水平居中 */
+  justify-content: center; /* 水平���中 */
   text-align: center;
   min-width: 100px; /* 固定宽度 */
   min-height: 100px; /* 固定高度 */
@@ -157,6 +172,18 @@
 
 .overlay-title { margin: 0 0 0.5rem; }
 .overlay-text { color: var(--text-secondary); margin: 0 0 1rem; }
+
+.language-bar {
+  margin-left: 1rem;
+}
+
+.lang-select {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 0.25rem 0.5rem;
+}
 
 @media (max-width: 768px) {
   .counter-value { font-size: 4rem; }
