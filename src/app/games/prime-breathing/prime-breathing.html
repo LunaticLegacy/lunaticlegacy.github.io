@@ -1,0 +1,42 @@
+<section class="game-section">
+  <div class="game-container">
+    <header class="game-header">
+      <a routerLink="/" class="nav-link">← Back</a>
+      <h1 class="game-title">Prime Breathing</h1>
+    </header>
+
+    <div class="status-bar">
+      <div class="hearts" aria-label="Lives">
+        <span *ngFor="let h of [0,1,2]; let i = index" class="heart" [class.heart-lost]="i >= lives">❤</span>
+      </div>
+      <div class="instructions">
+        <p class="instruction-text">
+          <span class="hint-label">Rule:</span>
+          Hold Space while numbers are not prime. Release on primes.
+        </p>
+      </div>
+    </div>
+
+    <div class="counter-panel">
+      <div class="counter-value" [class.counter-prime]="isPrimeNow" [class.counter-composite]="!isPrimeNow">{{ count }}</div>
+      <div class="action-indicator" [class.correct]="isHolding === shouldHold" [class.incorrect]="isHolding !== shouldHold">
+        <span *ngIf="shouldHold; else releaseTpl" class="action-text">Hold</span>
+        <ng-template #releaseTpl><span class="action-text">Release</span></ng-template>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn-primary" *ngIf="!running && lives === 3 && count === 0" (click)="start()">Start</button>
+      <button class="btn-primary" *ngIf="!running && lives > 0 && !(lives === 3 && count === 0)" (click)="start()">Restart</button>
+      <p class="control-hint">Press and hold Space for composites, let go on primes.</p>
+    </div>
+
+    <div class="overlay" *ngIf="!running && lives <= 0">
+      <div class="overlay-card">
+        <h2 class="overlay-title">Game Over</h2>
+        <p class="overlay-text">You lost all hearts. Try again!</p>
+        <button class="btn-primary" (click)="start()">Play Again</button>
+      </div>
+    </div>
+  </div>
+</section>
