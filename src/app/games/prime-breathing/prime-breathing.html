@@ -84,10 +84,15 @@
       <button
         class="hold-button"
         [attr.aria-pressed]="isHolding"
+        [attr.draggable]="false"
         (pointerdown)="onPressStart($event)"
         (pointerup)="onPressEnd($event)"
         (pointercancel)="onPressEnd($event)"
         (pointerleave)="onPressEnd($event)"
+        (touchstart)="onPressStart($event)"
+        (touchend)="onPressEnd($event)"
+        (dragstart)="$event.preventDefault()"
+        (selectstart)="$event.preventDefault()"
         (contextmenu)="$event.preventDefault()"
       >{{ t('hold') }}</button>
     </div>

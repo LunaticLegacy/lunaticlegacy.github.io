@@ -96,20 +96,19 @@
   border-radius: 50%; /* 关键修改：圆形色块 */
   display: inline-flex; /* 使内边距生效 */
   align-items: center; /* 垂直居中 */
-  justify-content: center; /* 水平���中 */
+  justify-content: center; /* 水平居中 */
   text-align: center;
   min-width: 100px; /* 固定宽度 */
   min-height: 100px; /* 固定高度 */
   box-shadow: var(--shadow-md);
 }
 
-/* 质数状态：渐变色圆形 */
+/* 保证质数和合数状态的背景颜色一致 */
 .counter-prime {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: var(--bg-secondary);
   color: red;
 }
 
-/* 非质数状态：单色背景 */
 .counter-composite {
   background: var(--bg-secondary);
   color: red;
@@ -217,7 +216,10 @@
   box-shadow: var(--shadow-lg);
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
   touch-action: none;
+  outline: none;
   min-width: 220px;
 }
 
