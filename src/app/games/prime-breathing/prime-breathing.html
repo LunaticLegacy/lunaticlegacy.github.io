@@ -1,0 +1,53 @@
+<section class="game-section">
+  <div class="game-container">
+    <header class="game-header">
+      <a routerLink="/" class="nav-link">← Back</a>
+      <h1 class="game-title">Prime Breathing</h1>
+    </header>
+
+    <div class="status-bar">
+      <div class="hearts" aria-label="Lives">
+        <!-- 状态栏：生命值 -->
+        @for(h of [0,1,2]; track $index) {
+            <span class="heart" [class.heart-lost]="$index >= lives">❤</span>
+        }
+      </div>
+      <div class="instructions">
+        <p class="instruction-text">
+          <span class="hint-label">Rule:</span>
+          Hold Space while numbers are not prime. Release on primes.
+          You have 1/3 seconds for reaction.
+        </p>
+      </div>
+    </div>
+
+    <div class="counter-panel">
+      <!-- 数字底色，我也许需要给数字给一个底框。 -->
+      <div class="counter-value" [class.counter-prime]="isPrimeNow" [class.counter-composite]="!isPrimeNow">{{ count }}</div>
+      <div class="action-indicator" [class.correct]="isHolding === shouldHold" [class.incorrect]="isHolding !== shouldHold">
+        <!-- 动作指示器 -->
+        @if (shouldHold) {
+          <span class="action-text">Hold</span>
+        } @else {
+          <span class="action-text">Release</span>
+        }
+      </div>
+    </div>
+
+    <div class="controls">
+      <!-- 必须支持按空格开始，否则起手会很难受。 -->
+      @if (!running && lives === 3 && count === 0) { 
+        <button class="btn-primary" (click)="start()">Press or Hold Spacebar to Start</button> 
+      }
+      <p class="control-hint">Press and hold Space for composites, let go on primes.</p>
+    </div>
+
+    @if (!running && lives <= 0) {
+      <div class="overlay-card">
+        <h2 class="overlay-title">Game Over</h2>
+        <p class="overlay-text">You lost all hearts. Try again!</p>
+        <button class="btn-primary" (click)="start()">Press or Hold Spacebar to Play Again</button>
+      </div>
+    }
+  </div>
+</section>

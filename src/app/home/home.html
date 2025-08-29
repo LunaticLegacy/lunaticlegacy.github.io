@@ -1,30 +1,93 @@
-<!-- home.html -->
-<div class="page-container">
-  <!-- 头部 -->
-  <header class="header">
-    <h1>WIP</h1>
-    <nav>
-    </nav>
-  </header>
-
-  <!-- 主体内容 -->
-  <main class="content">
-    <!-- 个性化欢迎语 -->
-    <section class="hero">
-      <p>Hello world! Now {{people_view}} people viewed this WIP website.</p>
-      <img [src]="'assets/images/background.png'">
-    </section>
-
-    <!-- 项目展示 -->
-    <section id="projects" class="projects">
-      <h2>STILL WIP</h2>
-      <div class="project-grid">
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">月と猫 - LunaNeko</h1>
+      <p class="hero-subtitle">Learning & Exploring Code</p>
+      <p class="hero-description">On a journey of discovery, building skills one line of code at a time</p>
+      <div class="hero-buttons">
+        <button class="btn-primary">See My Progress</button>
+        <button class="btn-secondary">Connect With Me</button>
       </div>
-    </section>
-  </main>
+    </div>
+    <div class="hero-image">
+      <img
+        loading="lazy"
+        [src]="avatarSrc"
+        class="profile-image"
+        alt="LunaNeko Profile"
+      />
+    </div>
+  </div>
+</section>
 
-  <!-- 页脚 -->
-  <footer class="footer">
-    <p>&copy; 2024 via Lunaneko</p>
-  </footer>
-</div>
+<!-- About Section -->
+<section class="about">
+  <div class="container">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-content">
+      <p>Welcome to my learning space! I'm someone who's passionate about code and discovering what's possible with technology. I'm honest about being on a journey - I haven't "finished" much yet, but I'm enjoying the process of learning and experimenting.</p>
+      <div class="skills">
+        <span class="skill-tag">Learning Angular</span>
+        <span class="skill-tag">Exploring TypeScript</span>
+        <span class="skill-tag">Playing with CSS</span>
+        <span class="skill-tag">Curious about Design</span>
+        <span class="skill-tag">Building & Breaking Things</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section class="projects">
+  <div class="container">
+    <h2 class="section-title">Current Experiments</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-image-placeholder wip"></div>
+        <h3>This Website 🌙</h3>
+        <p>Learning Angular while building my first personal site. It's simple, but it's mine and it actually works!</p>
+        <span class="project-status">You're looking at it!</span>
+      </div>
+      <div class="project-card">
+        <div class="project-image-placeholder learning"></div>
+        <h3>Code Experiments 🔧</h3>
+        <p>Small coding challenges and tutorials I'm working through. Nothing fancy, just building understanding step by step.</p>
+        <span class="project-status">In progress...</span>
+      </div>
+      <div class="project-card">
+        <div class="project-image-placeholder future"></div>
+        <h3>Future Ideas 💭</h3>
+        <p>Things I want to try when I feel more confident. Maybe a game, maybe a tool, maybe something completely different.</p>
+        <span class="project-status">Someday...</span>
+      </div>
+      <a class="project-card project-link-card" routerLink="/prime-breathing">
+        <div class="project-image-placeholder learning"></div>
+        <h3>Prime Breathing 🎮</h3>
+        <p>Hold Space on non-primes, release on primes. Lose 1 heart per mistake. 3 hearts and you lose.</p>
+        <span class="project-status">Play now →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact">
+  <div class="container">
+    <h2 class="section-title">Let's Connect</h2>
+    <p class="contact-description">Want to learn together or share experiences? I'd love to connect with fellow learners and creators.</p>
+    <div class="contact-methods">
+      <a href="https://github.com/LunaticLegacy" class="contact-item">
+        <span class="contact-icon">🐱</span>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 月と猫 - LunaNeko. Built while learning, one mistake at a time 🌙 / Powered by Builder & Angular</p>
+  </div>
+</footer>
