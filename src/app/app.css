@@ -1,0 +1,40 @@
+/* Global site background layers */
+:host {
+  --scroll-progress: 0;
+  --img1-opacity: 1;
+  --img2-opacity: 0;
+  --img3-opacity: 0;
+  --gradient-angle: 135deg;
+  --gradient-strength: 0.5;
+}
+
+.site-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.5; /* base opacity for images */
+  transition: opacity 300ms ease;
+}
+
+.bg-1 { background-image: url('/pictures/background_pic_main/fig_1.png'); opacity: calc(0.5 * var(--img1-opacity)); }
+.bg-2 { background-image: url('/pictures/background_pic_main/fig_2.png'); opacity: calc(0.5 * var(--img2-opacity)); }
+.bg-3 { background-image: url('/pictures/background_pic_main/fig_3.png'); opacity: calc(0.5 * var(--img3-opacity)); }
+
+/* Gradient overlay that changes with scroll */
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--gradient-angle), rgba(99,102,241, calc(0.35 * var(--gradient-strength))) 0%, rgba(236,72,153, calc(0.35 * var(--gradient-strength))) 100%);
+  mix-blend-mode: screen;
+  transition: background 200ms linear;
+}
